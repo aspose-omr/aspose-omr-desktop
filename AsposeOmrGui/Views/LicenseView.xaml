@@ -1,0 +1,56 @@
+<UserControl x:Class="AsposeOmrGui.Views.LicenseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="520" d:DesignWidth="820">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Style="{StaticResource Card}" MaxWidth="720" HorizontalAlignment="Left" Margin="4">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Border Style="{StaticResource StepBadge}">
+                        <TextBlock Text="1" Foreground="White" FontWeight="Bold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="Choose your license file" Style="{StaticResource H1}"
+                               Margin="12,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,16">
+                    Aspose.OMR needs a license file (ending in <Run FontWeight="SemiBold">.lic</Run>) to work without limits.
+                    Pick the file your administrator gave you. We remember it, so you only do this once.
+                </TextBlock>
+
+                <TextBlock Text="Current license file" Style="{StaticResource H2}" />
+                <Border Background="{StaticResource SubtleBackgroundBrush}" CornerRadius="6" Padding="10,8" Margin="0,4,0,14">
+                    <TextBlock Text="{Binding LicensePath, TargetNullValue='(none chosen yet)', FallbackValue='(none chosen yet)'}"
+                               TextTrimming="CharacterEllipsis" FontSize="13"
+                               ToolTip="{Binding LicensePath}" />
+                </Border>
+
+                <Border Background="{StaticResource SubtleBackgroundBrush}" CornerRadius="6" Padding="12,10" Margin="0,0,0,16">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#9679;" Foreground="{Binding StatusBrush}" FontSize="16"
+                                   VerticalAlignment="Top" Margin="0,0,8,0" />
+                        <TextBlock Text="{Binding StatusText}" Foreground="{Binding StatusBrush}"
+                                   TextWrapping="Wrap" MaxWidth="560" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Choose license file…" Style="{StaticResource PrimaryButton}"
+                            Command="{Binding ChooseCommand}" />
+                    <Button Content="Re-check" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding ReapplyCommand}" Margin="10,0,0,0" />
+                </StackPanel>
+
+                <Button Content="Continue without a license (evaluation mode)"
+                        Style="{StaticResource LinkButton}"
+                        Command="{Binding UseEvaluationCommand}"
+                        HorizontalAlignment="Left" Margin="0,18,0,0" />
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,43 @@
+<UserControl x:Class="AsposeOmrGui.Controls.PieChartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             x:Name="Root"
+             d:DesignHeight="200" d:DesignWidth="420">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Canvas x:Name="PieCanvas"
+                Grid.Column="0"
+                Width="190" Height="190"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ClipToBounds="False"
+                SizeChanged="OnCanvasSizeChanged" />
+
+        <ItemsControl Grid.Column="1"
+                      Margin="12,0,0,0"
+                      VerticalAlignment="Center"
+                      ItemsSource="{Binding Slices, ElementName=Root}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                        <Rectangle Width="14" Height="14" RadiusX="2" RadiusY="2"
+                                   Fill="{Binding Color}"
+                                   Stroke="#33000000" StrokeThickness="1"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding LegendText}"
+                                   Margin="8,0,0,0"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="NoWrap" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

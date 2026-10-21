@@ -1,0 +1,85 @@
+<Window x:Class="AsposeOmrGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:AsposeOmrGui.ViewModels"
+        xmlns:views="clr-namespace:AsposeOmrGui.Views"
+        Title="Aspose OMR"
+        Height="760" Width="1060"
+        MinHeight="620" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource WindowBackgroundBrush}">
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ===== Header ===== -->
+        <Border Grid.Row="0" Background="White" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid Margin="20,14">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="&#128221;" FontSize="22" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <StackPanel>
+                        <TextBlock Text="Aspose OMR" Style="{StaticResource H1}" FontSize="20" />
+                        <TextBlock Text="Recognize your scanned forms in a few simple steps."
+                                   Style="{StaticResource Hint}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Border HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Background="#FFF4D6" CornerRadius="6" Padding="10,5"
+                        Visibility="{Binding IsEvaluation, Converter={StaticResource BoolToVis}}">
+                    <TextBlock Text="&#9888; Evaluation mode — only the first 5 answers of each form are read."
+                               Foreground="#8A6D1A" FontSize="12" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ===== Tabs ===== -->
+        <TabControl Grid.Row="1" Margin="16,14,16,10"
+                    BorderThickness="0" Background="Transparent"
+                    SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+
+            <TabItem Header="1 · License">
+                <views:LicenseView DataContext="{Binding License}" />
+            </TabItem>
+
+            <TabItem Header="2 · Templates" IsEnabled="{Binding CanUseTemplates}">
+                <views:TemplatesView DataContext="{Binding Templates}" />
+            </TabItem>
+
+            <TabItem Header="3 · Cases" IsEnabled="{Binding CanUseCases}">
+                <views:CasesView DataContext="{Binding Cases}" />
+            </TabItem>
+
+            <TabItem Header="4 · Statistics" IsEnabled="{Binding CanUseStats}">
+                <views:StatsView DataContext="{Binding Statistics}" />
+            </TabItem>
+        </TabControl>
+
+        <!-- ===== Status bar ===== -->
+        <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+            <TextBlock Text="{Binding StatusText}" Margin="20,8"
+                       Foreground="{StaticResource TextMutedBrush}" FontSize="13"
+                       TextTrimming="CharacterEllipsis" />
+        </Border>
+
+        <!-- ===== Busy overlay ===== -->
+        <Grid Grid.RowSpan="3" Background="#66000000"
+              Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}">
+            <Border Style="{StaticResource Card}" Width="340" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Working…" Style="{StaticResource H2}" />
+                    <TextBlock Text="{Binding BusyText}" Style="{StaticResource Hint}" Margin="0,6,0,12" />
+                    <ProgressBar IsIndeterminate="True" Height="6" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
